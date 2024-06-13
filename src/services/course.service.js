@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = "http://localhost:8080/api/courses";
+const API_URL = "https://mern-project-api-bycc.onrender.com/api/courses";
 //HEY
 class CourseService {
   post(title, description, price) {
