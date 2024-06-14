@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import AuthServices from "../services/auth.services";
+import AuthService from "../services/auth.service";
 
 const NavComponent = ({ currentUser, setCurrentUser }) => {
   const handleLogout = () => {
-    AuthServices.logout(); // 清空Local storage
+    AuthService.logout(); // 清空Local storage
     window.alert("登出成功!現在您會被導向到首頁。");
     setCurrentUser(null);
   };
@@ -29,7 +29,7 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
             <div className="collapse navbar-collapse" id="navbarNav">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link className="nav-link active" to="/">
+                  <Link className="nav-link" to="/">
                     首頁
                   </Link>
                 </li>

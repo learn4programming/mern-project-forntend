@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthService from "../services/auth.services";
+import AuthService from "../services/auth.service";
 
 const RegisterComponent = () => {
   const navigate = useNavigate();
   let [username, setUsername] = useState("");
-  let [password, setPassword] = useState("");
   let [email, setEmail] = useState("");
+  let [password, setPassword] = useState("");
   let [role, setRole] = useState("");
   let [message, setMessage] = useState("");
 
@@ -26,7 +26,7 @@ const RegisterComponent = () => {
   const handleRegister = () => {
     AuthService.register(username, email, password, role)
       .then(() => {
-        window.alert("註冊成功，你現在將被導入到登入頁面");
+        window.alert("註冊成功，您現在將被導向到登入頁面");
         navigate("/login");
       })
       .catch((e) => {
@@ -71,13 +71,11 @@ const RegisterComponent = () => {
         <br />
         <div className="form-group">
           <label htmlFor="password">身份：</label>
-          <input
-            onChange={handleRole}
-            type="text"
-            className="form-control"
-            placeholder="只能填入student或是instructor這兩個選項其一"
-            name="role"
-          />
+          <select onChange={handleRole} className="form-control" name="role">
+            <option disabled selected vlaue></option>
+            <option vlaue="student">student</option>
+            <option vlaue="instructor">instructor</option>
+          </select>
         </div>
         <br />
         <button onClick={handleRegister} className="btn btn-primary">

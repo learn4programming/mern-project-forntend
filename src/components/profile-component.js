@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import AuthServices from "../services/auth.services";
+import AuthServices from "../services/auth.service";
 
 const ProfileComponent = ({ currentUser, setCurrentUser }) => {
   return (

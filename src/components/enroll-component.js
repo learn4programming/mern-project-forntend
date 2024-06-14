@@ -7,6 +7,8 @@ const EnrollComponent = (props) => {
   const navigate = useNavigate();
   let [searchInput, setSearchInput] = useState("");
   let [searchResult, setSearchResult] = useState(null);
+  let [courseData, setCourseData] = useState(null);
+
   const handleTakeToLogin = () => {
     navigate("/login");
   };
@@ -42,7 +44,7 @@ const EnrollComponent = (props) => {
             className="btn btn-primary btn-lg"
             onClick={handleTakeToLogin}
           >
-            導入到登入頁面。
+            登入
           </button>
         </div>
       )}
@@ -63,9 +65,9 @@ const EnrollComponent = (props) => {
           </button>
         </div>
       )}
+
       {currentUser && searchResult && searchResult.length != 0 && (
-        <div>
-          <p>我們從 API 返回的數據。</p>
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
           {searchResult.map((course) => (
             <div key={course._id} className="card" style={{ width: "18rem" }}>
               <div className="card-body">

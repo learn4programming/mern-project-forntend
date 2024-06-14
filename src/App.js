@@ -5,13 +5,14 @@ import HomeComponent from "./components/home-component";
 import RegisterComponent from "./components/register-component";
 import LoginComponent from "./components/login-component";
 import ProfileComponent from "./components/profile-component";
-import AuthServices from "./services/auth.services";
+import AuthService from "./services/auth.service";
 import CourseComponent from "./components/course-component";
 import PostCourseComponent from "./components/postCourse-component";
 import EnrollComponent from "./components/enroll-component";
+import CourseService from "./services/course.service";
 
 function App() {
-  let [currentUser, setCurrentUser] = useState(AuthServices.getCurrentUser());
+  let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
 
   return (
     <BrowserRouter>
