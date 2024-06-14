@@ -65,6 +65,7 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
         <div>
           <h1>歡迎來到學生的課程頁面。</h1>
           <br />
+
           {courseData && courseData.length == 0 && (
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <h3>目前尚未註冊課程</h3>

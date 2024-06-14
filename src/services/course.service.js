@@ -23,7 +23,7 @@ class CourseService {
   }
 
   // 使用學生id，找到學生註冊的課程
-  getEnrolledCourses(_id) {
+  getEnrolledCourse(_id) {
     let token;
     if (localStorage.getItem("user")) {
       token = JSON.parse(localStorage.getItem("user")).token;
