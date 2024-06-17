@@ -81,7 +81,6 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
               <div className="card" style={{ width: "18rem", margib: "1rem" }}>
                 <div className="card-body">
                   <h5 className="card-title">課程名稱: {course.title}</h5>
-                  <p style={{ margin: "0.5rem 0rem" }}>課程ID: {course._id}</p>
                   <p style={{ margin: "0.5rem 0rem" }} className="card-text">
                     {course.description}
                   </p>
