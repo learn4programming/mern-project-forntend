@@ -31,7 +31,20 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
           });
       }
     }
-  });
+  }, [currentUser]);
+
+  const handleUnenroll = (e) => {
+    CourseService.unenroll(e.target.id)
+      .then(() => {
+        window.alert("取消註冊成功");
+        setCourseData(
+          courseData.filter((course) => course._id !== e.target.id)
+        );
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div style={{ padding: "3rem" }}>
@@ -78,7 +91,10 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {courseData.map((course) => {
             return (
-              <div className="card" style={{ width: "18rem", margib: "1rem" }}>
+              <div
+                className="card"
+                style={{ width: "18rem", margin: "0.5rem" }}
+              >
                 <div className="card-body">
                   <h5 className="card-title">課程名稱: {course.title}</h5>
                   <p style={{ margin: "0.5rem 0rem" }} className="card-text">
@@ -90,6 +106,14 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
                   <p style={{ margin: "0.5rem 0rem" }}>
                     課程價格: {course.price}
                   </p>
+                  <a
+                    href="#"
+                    onClick={handleUnenroll}
+                    className="card-text btn btn-primary"
+                    id={course._id}
+                  >
+                    取消註冊
+                  </a>
                 </div>
               </div>
             );

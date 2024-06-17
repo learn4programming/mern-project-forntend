@@ -1,6 +1,6 @@
 import axios from "axios";
-const API_URL = "https://mern-project-api-bycc.onrender.com/api/courses";
-// const API_URL = "http://localhost:8080/api/courses";
+// const API_URL = "https://mern-project-api-bycc.onrender.com/api/courses";
+const API_URL = "http://localhost:8080/api/courses";
 
 //HEY
 class CourseService {
@@ -20,6 +20,21 @@ class CourseService {
         },
       }
     );
+  }
+
+  getAllCourses() {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.get(API_URL + "/", {
+      headers: {
+        Authorization: token,
+      },
+    });
   }
 
   // 使用學生id，找到學生註冊的課程
@@ -79,6 +94,25 @@ class CourseService {
 
     return axios.post(
       API_URL + "/enroll/" + _id,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+  }
+
+  unenroll(_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.post(
+      API_URL + "/unenroll/" + _id,
       {},
       {
         headers: {

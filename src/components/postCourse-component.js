@@ -27,9 +27,9 @@ const PostCourseComponent = (props) => {
         window.alert("新課程已創建成功");
         navigate("/course");
       })
-      .catch((error) => {
-        console.log(error.response);
-        setMessage(error.response.data);
+      .catch((e) => {
+        console.log(e.response);
+        setMessage(e.response.data);
       });
   };
 
