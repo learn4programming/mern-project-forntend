@@ -45,6 +45,7 @@ const RegisterComponent = () => {
             type="text"
             className="form-control"
             name="username"
+            placeholder="長度至少超過6個英文或數字"
           />
         </div>
         <br />
@@ -55,6 +56,7 @@ const RegisterComponent = () => {
             type="text"
             className="form-control"
             name="email"
+            placeholder="example@gmail.com"
           />
         </div>
         <br />
@@ -72,7 +74,9 @@ const RegisterComponent = () => {
         <div className="form-group">
           <label htmlFor="password">身份：</label>
           <select onChange={handleRole} className="form-control" name="role">
-            <option disabled selected vlaue></option>
+            <option disabled selected vlaue="">
+              必填
+            </option>
             <option vlaue="student">student</option>
             <option vlaue="instructor">instructor</option>
           </select>

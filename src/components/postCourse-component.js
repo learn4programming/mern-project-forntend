@@ -6,7 +6,7 @@ const PostCourseComponent = (props) => {
   let { currentUser, setCurrentUser } = props;
   let [title, setTitle] = useState("");
   let [description, setDescription] = useState("");
-  let [price, setPrice] = useState(0);
+  let [price, setPrice] = useState(null);
   let [message, setMessage] = useState("");
   const navigate = useNavigate();
   const handleTakeToLogin = () => {
@@ -19,7 +19,11 @@ const PostCourseComponent = (props) => {
     setDescription(e.target.value);
   };
   const handleChangePrice = (e) => {
-    setPrice(e.target.value);
+    let value = e.target.value;
+    if (value.length > 4) {
+      value = "9999";
+    }
+    setPrice(value);
   };
   const postCourse = () => {
     CourseService.post(title, description, price)
@@ -28,7 +32,6 @@ const PostCourseComponent = (props) => {
         navigate("/course");
       })
       .catch((e) => {
-        console.log(e.response);
         setMessage(e.response.data);
       });
   };
@@ -61,15 +64,17 @@ const PostCourseComponent = (props) => {
             className="form-control"
             id="exampleforTitle"
             onChange={handleChangeTitle}
+            placeholder="標題不得少於6個字元"
           />
           <br />
-          <label for="exampleforContent">內容：</label>
+          <label for="exampleforContent">課程內容：</label>
           <textarea
             className="form-control"
             id="exampleforContent"
             aria-describedby="emailHelp"
             name="content"
             onChange={handleChangeDesciption}
+            placeholder="內容不得少於6個字元"
           />
           <br />
           <label for="exampleforPrice">價格：</label>
@@ -78,7 +83,9 @@ const PostCourseComponent = (props) => {
             type="number"
             className="form-control"
             id="exampleforPrice"
+            value={price}
             onChange={handleChangePrice}
+            placeholder="價格介於1~9999之間"
           />
           <br />
           <button className="btn btn-primary" onClick={postCourse}>

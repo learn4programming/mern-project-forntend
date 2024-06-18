@@ -43,8 +43,7 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
   const handleEnroll = (e) => {
     CourseService.enroll(e.target.id)
       .then(() => {
-        window.alert("課程註冊成功，重新導向到課程頁面。");
-        navigate("/course");
+        window.alert("課程註冊成功。");
       })
       .catch((err) => {
         window.alert(err.response.data);

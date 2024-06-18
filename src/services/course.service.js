@@ -121,6 +121,25 @@ class CourseService {
       }
     );
   }
+
+  deleteCourse(_id) {
+    let token;
+    if (localStorage.getItem("user")) {
+      token = JSON.parse(localStorage.getItem("user")).token;
+    } else {
+      token = "";
+    }
+
+    return axios.post(
+      API_URL + "/delete/" + _id,
+      {},
+      {
+        headers: {
+          Authorization: token,
+        },
+      }
+    );
+  }
 }
 
 export default new CourseService();

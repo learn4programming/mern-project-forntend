@@ -13,7 +13,7 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
     let _id;
     if (currentUser) {
       _id = currentUser.user._id;
-      if (currentUser.user.role == "instructor") {
+      if (currentUser.user.role === "instructor") {
         CourseService.get(_id)
           .then((data) => {
             setCourseData(data.data);
@@ -21,7 +21,7 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
           .catch((e) => {
             console.log(e);
           });
-      } else if (currentUser.user.role == "student") {
+      } else if (currentUser.user.role === "student") {
         CourseService.getEnrolledCourse(_id)
           .then((data) => {
             setCourseData(data.data);
@@ -41,8 +41,21 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
           courseData.filter((course) => course._id !== e.target.id)
         );
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const handleDelete = (e) => {
+    CourseService.deleteCourse(e.target.id)
+      .then(() => {
+        window.alert("課程刪除成功");
+        setCourseData(
+          courseData.filter((course) => course._id !== e.target.id)
+        );
+      })
+      .catch((e) => {
+        console.log(e);
       });
   };
 
@@ -61,12 +74,12 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
           </p>
         </div>
       )}
-      {currentUser && currentUser.user.role == "instructor" && (
+      {currentUser && currentUser.user.role === "instructor" && (
         <div>
           <h1>歡迎來到講師的課程頁面。</h1>
           <br />
 
-          {courseData && courseData.length == 0 && (
+          {courseData && courseData.length === 0 && (
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <h3>目前尚未新增課程</h3>
             </div>
@@ -74,12 +87,12 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
         </div>
       )}
 
-      {currentUser && currentUser.user.role == "student" && (
+      {currentUser && currentUser.user.role === "student" && (
         <div>
           <h1>歡迎來到學生的課程頁面。</h1>
           <br />
 
-          {courseData && courseData.length == 0 && (
+          {courseData && courseData.length === 0 && (
             <div style={{ display: "flex", flexWrap: "wrap" }}>
               <h3>目前尚未註冊課程</h3>
             </div>
@@ -101,19 +114,34 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
                     {course.description}
                   </p>
                   <p style={{ margin: "0.5rem 0rem" }}>
-                    學生人數: {course.students.length}
+                    課程講師: {course.instructor.username}
                   </p>
                   <p style={{ margin: "0.5rem 0rem" }}>
                     課程價格: {course.price}
                   </p>
-                  <a
-                    href="#"
-                    onClick={handleUnenroll}
-                    className="card-text btn btn-primary"
-                    id={course._id}
-                  >
-                    取消註冊
-                  </a>
+                  <p style={{ margin: "0.5rem 0rem" }}>
+                    學生人數: {course.students.length}
+                  </p>
+
+                  {currentUser && currentUser.user.role === "instructor" ? (
+                    <a
+                      href="#"
+                      onClick={handleDelete}
+                      className="card-text btn btn-primary"
+                      id={course._id}
+                    >
+                      課程刪除
+                    </a>
+                  ) : (
+                    <a
+                      href="#"
+                      onClick={handleUnenroll}
+                      className="card-text btn btn-primary"
+                      id={course._id}
+                    >
+                      取消註冊
+                    </a>
+                  )}
                 </div>
               </div>
             );
