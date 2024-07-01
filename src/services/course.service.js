@@ -1,6 +1,6 @@
 import axios from "axios";
-const API_URL = "https://mern-project-api-bycc.onrender.com/api/courses";
-// const API_URL = "http://localhost:8080/api/courses";
+const API_URL = "https://mern-project-api-bycc.onrender.com";
+// const API_URL = "http://localhost:8080";
 
 //HEY
 class CourseService {
@@ -12,7 +12,7 @@ class CourseService {
       token = "";
     }
     return axios.post(
-      API_URL,
+      API_URL + "/api/courses/",
       { title, description, price },
       {
         headers: {
@@ -30,7 +30,7 @@ class CourseService {
       token = "";
     }
 
-    return axios.get(API_URL + "/", {
+    return axios.get(API_URL + "/api/courses/", {
       headers: {
         Authorization: token,
       },
@@ -46,7 +46,7 @@ class CourseService {
       token = "";
     }
 
-    return axios.get(API_URL + "/student/" + _id, {
+    return axios.get(API_URL + "/api/courses/student/" + _id, {
       headers: {
         Authorization: token,
       },
@@ -62,7 +62,7 @@ class CourseService {
       token = "";
     }
 
-    return axios.get(API_URL + "/instructor/" + _id, {
+    return axios.get(API_URL + "/api/courses/instructor/" + _id, {
       headers: {
         Authorization: token,
       },
@@ -77,7 +77,7 @@ class CourseService {
       token = "";
     }
 
-    return axios.get(API_URL + "/findByName/" + name, {
+    return axios.get(API_URL + "/api/courses/findByName/" + name, {
       headers: {
         Authorization: token,
       },
@@ -93,7 +93,7 @@ class CourseService {
     }
 
     return axios.post(
-      API_URL + "/enroll/" + _id,
+      API_URL + "/api/courses/enroll/" + _id,
       {},
       {
         headers: {
@@ -112,7 +112,7 @@ class CourseService {
     }
 
     return axios.post(
-      API_URL + "/unenroll/" + _id,
+      API_URL + "/api/courses/unenroll/" + _id,
       {},
       {
         headers: {
@@ -131,7 +131,7 @@ class CourseService {
     }
 
     return axios.post(
-      API_URL + "/delete/" + _id,
+      API_URL + "/api/courses/delete/" + _id,
       {},
       {
         headers: {
@@ -139,6 +139,16 @@ class CourseService {
         },
       }
     );
+  }
+
+  // 0701新增: 遊客可看所有課程
+  getAllPublicCourses() {
+    return axios.get(API_URL + "/public/");
+  }
+
+  // 0701新增: 遊客亦可使用查詢課程系統
+  getPublicCourseByName(name) {
+    return axios.get(API_URL + "/public/findByName/" + name);
   }
 }
 

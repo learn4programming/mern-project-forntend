@@ -33,7 +33,6 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
                     首頁
                   </Link>
                 </li>
-
                 {!currentUser && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/register">
@@ -41,7 +40,6 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
                     </Link>
                   </li>
                 )}
-
                 {!currentUser && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/login">
@@ -49,7 +47,6 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
                     </Link>
                   </li>
                 )}
-
                 {currentUser && (
                   <li className="nav-item">
                     <Link onClick={handleLogout} className="nav-link" to="/">
@@ -57,7 +54,6 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
                     </Link>
                   </li>
                 )}
-
                 {currentUser && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/profile">
@@ -65,7 +61,6 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
                     </Link>
                   </li>
                 )}
-
                 {currentUser && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/course">
@@ -73,19 +68,18 @@ const NavComponent = ({ currentUser, setCurrentUser }) => {
                     </Link>
                   </li>
                 )}
-
-                {currentUser && currentUser.user.role == "instructor" && (
+                {currentUser && currentUser.user.role === "instructor" && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/postCourse">
                       新增課程
                     </Link>
                   </li>
                 )}
-
-                {currentUser && currentUser.user.role == "student" && (
+                {(!currentUser ||
+                  (currentUser && currentUser.user.role === "student")) && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/enroll">
-                      註冊課程
+                      課程總覽
                     </Link>
                   </li>
                 )}

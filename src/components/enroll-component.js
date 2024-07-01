@@ -9,10 +9,18 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
   let [allCourses, setAllCourses] = useState([]);
 
   useEffect(() => {
-    if (currentUser && currentUser.user.role == "student") {
+    if (currentUser && currentUser.user.role === "student") {
       CourseService.getAllCourses()
         .then((response) => {
           setAllCourses(response.data);
+          setSearchResult(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      CourseService.getAllPublicCourses()
+        .then((response) => {
           setSearchResult(response.data);
         })
         .catch((e) => {
@@ -22,7 +30,7 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
   }, []);
 
   const handleTakeToLogin = () => {
-    navigate("/login");
+    alert("欲註冊課程請先登入會員", navigate("/login"));
   };
   const handleChangeInput = (e) => {
     setSearchInput(e.target.value);
@@ -51,9 +59,23 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
       });
   };
 
+  // 0701新增
+  const newHandleSearch = () => {
+    if (searchInput === "") {
+      setSearchResult(allCourses);
+    }
+    CourseService.getPublicCourseByName(searchInput)
+      .then((data) => {
+        setSearchResult(data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div style={{ padding: "3rem" }}>
-      {!currentUser && (
+      {/* {!currentUser && (
         <div>
           <p>你必須先登入才能查詢課程</p>
           <button
@@ -63,25 +85,24 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
             登入
           </button>
         </div>
-      )}
-      {currentUser && currentUser.user.role == "instructor" && (
+      )} */}
+      {currentUser && currentUser.user.role === "instructor" && (
         <div>
           <h1>只有學生才能註冊課程。</h1>
         </div>
       )}
-      {currentUser && currentUser.user.role == "student" && (
-        <div className="search input-group mb-3">
-          <input
-            onChange={handleChangeInput}
-            type="text"
-            className="form-control"
-            placeholder="請輸入課程名稱..."
-          />
-          <button onClick={handleSearch} className="btn btn-primary">
-            Search
-          </button>
-        </div>
-      )}
+
+      <div className="search input-group mb-3">
+        <input
+          onChange={handleChangeInput}
+          type="text"
+          className="form-control"
+          placeholder="請輸入課程名稱..."
+        />
+        <button onClick={newHandleSearch} className="btn btn-primary">
+          Search
+        </button>
+      </div>
 
       <div style={{ display: "flex", flexWrap: "wrap" }}>
         {searchResult && searchResult.length > 0 ? (
@@ -105,14 +126,25 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
                 <p style={{ margin: "0.5rem 0rem" }}>
                   講師: {course.instructor.username}
                 </p>
-                <a
-                  href="#"
-                  onClick={handleEnroll}
-                  className="card-text btn btn-primary"
-                  id={course._id}
-                >
-                  註冊課程
-                </a>
+                {currentUser && currentUser.user.role === "student" ? (
+                  <a
+                    href="#"
+                    onClick={handleEnroll}
+                    className="card-text btn btn-primary"
+                    id={course._id}
+                  >
+                    註冊課程
+                  </a>
+                ) : (
+                  <a
+                    href="#"
+                    onClick={handleTakeToLogin}
+                    className="card-text btn btn-primary"
+                    id={course._id}
+                  >
+                    註冊課程
+                  </a>
+                )}
               </div>
             </div>
           ))

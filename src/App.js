@@ -9,7 +9,6 @@ import AuthService from "./services/auth.service";
 import CourseComponent from "./components/course-component";
 import PostCourseComponent from "./components/postCourse-component";
 import EnrollComponent from "./components/enroll-component";
-import CourseService from "./services/course.service";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
