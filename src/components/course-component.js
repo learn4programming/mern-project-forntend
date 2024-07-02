@@ -100,6 +100,7 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
         </div>
       )}
 
+      {!courseData && <p>資料讀取中。。。</p>}
       {currentUser && courseData && courseData.length !== 0 && (
         <div style={{ display: "flex", flexWrap: "wrap" }}>
           {courseData.map((course) => {
@@ -124,23 +125,21 @@ const CourseComponent = ({ currentUser, setCurrentUser }) => {
                   </p>
 
                   {currentUser && currentUser.user.role === "instructor" ? (
-                    <a
-                      href="#"
+                    <button
                       onClick={handleDelete}
                       className="card-text btn btn-primary"
                       id={course._id}
                     >
                       課程刪除
-                    </a>
+                    </button>
                   ) : (
-                    <a
-                      href="#"
+                    <button
                       onClick={handleUnenroll}
                       className="card-text btn btn-primary"
                       id={course._id}
                     >
                       取消註冊
-                    </a>
+                    </button>
                   )}
                 </div>
               </div>

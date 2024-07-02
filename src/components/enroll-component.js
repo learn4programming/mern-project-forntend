@@ -105,53 +105,57 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
         </button>
       </div>
 
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
-        {searchResult && searchResult.length > 0 ? (
-          searchResult.map((course) => (
-            <div
-              key={course._id}
-              className="card"
-              style={{ width: "18rem", margin: "0.5rem" }}
-            >
-              <div className="card-body">
-                <h5 className="card-title">課程名稱: {course.title}</h5>
-                <p style={{ margin: "0.5rem 0rem" }} className="card-text">
-                  {course.description}
-                </p>
-                <p style={{ margin: "0.5rem 0rem" }}>
-                  學生人數: {course.students.length}
-                </p>
-                <p style={{ margin: "0.5rem 0rem" }}>
-                  課程價格: {course.price}
-                </p>
-                <p style={{ margin: "0.5rem 0rem" }}>
-                  講師: {course.instructor.username}
-                </p>
-                {currentUser && currentUser.user.role === "student" ? (
-                  <button
-                    onClick={handleEnroll}
-                    className="card-text btn btn-primary"
-                    id={course._id}
-                  >
-                    註冊課程
-                  </button>
-                ) : (
-                  <button
-                    href="#"
-                    onClick={handleTakeToLogin}
-                    className="card-text btn btn-primary"
-                    id={course._id}
-                  >
-                    註冊課程
-                  </button>
-                )}
+      {!searchResult ? (
+        <p>資料讀取中。。。</p>
+      ) : (
+        <div style={{ display: "flex", flexWrap: "wrap" }}>
+          {searchResult && searchResult.length > 0 ? (
+            searchResult.map((course) => (
+              <div
+                key={course._id}
+                className="card"
+                style={{ width: "18rem", margin: "0.5rem" }}
+              >
+                <div className="card-body">
+                  <h5 className="card-title">課程名稱: {course.title}</h5>
+                  <p style={{ margin: "0.5rem 0rem" }} className="card-text">
+                    {course.description}
+                  </p>
+                  <p style={{ margin: "0.5rem 0rem" }}>
+                    學生人數: {course.students.length}
+                  </p>
+                  <p style={{ margin: "0.5rem 0rem" }}>
+                    課程價格: {course.price}
+                  </p>
+                  <p style={{ margin: "0.5rem 0rem" }}>
+                    講師: {course.instructor.username}
+                  </p>
+                  {currentUser && currentUser.user.role === "student" ? (
+                    <button
+                      onClick={handleEnroll}
+                      className="card-text btn btn-primary"
+                      id={course._id}
+                    >
+                      註冊課程
+                    </button>
+                  ) : (
+                    <button
+                      href="#"
+                      onClick={handleTakeToLogin}
+                      className="card-text btn btn-primary"
+                      id={course._id}
+                    >
+                      註冊課程
+                    </button>
+                  )}
+                </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <p>沒有找到符合條件的課程。</p>
-        )}
-      </div>
+            ))
+          ) : (
+            <p>沒有找到符合條件的課程。</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };
