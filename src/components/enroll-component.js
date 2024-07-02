@@ -28,7 +28,7 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
           console.log(e);
         });
     }
-  }, []);
+  }, [currentUser]);
 
   const handleTakeToLogin = () => {
     alert("欲註冊課程請先登入會員", navigate("/login"));
@@ -36,18 +36,18 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
   const handleChangeInput = (e) => {
     setSearchInput(e.target.value);
   };
-  const handleSearch = () => {
-    if (searchInput === "") {
-      setSearchResult(allCourses);
-    }
-    CourseService.getCourseByName(searchInput)
-      .then((data) => {
-        setSearchResult(data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  // const handleSearch = () => {
+  //   if (searchInput === "") {
+  //     setSearchResult(allCourses);
+  //   }
+  //   CourseService.getCourseByName(searchInput)
+  //     .then((data) => {
+  //       setSearchResult(data.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const handleEnroll = (e) => {
     CourseService.enroll(e.target.id)
@@ -128,23 +128,22 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
                   講師: {course.instructor.username}
                 </p>
                 {currentUser && currentUser.user.role === "student" ? (
-                  <a
-                    href="#"
+                  <button
                     onClick={handleEnroll}
                     className="card-text btn btn-primary"
                     id={course._id}
                   >
                     註冊課程
-                  </a>
+                  </button>
                 ) : (
-                  <a
+                  <button
                     href="#"
                     onClick={handleTakeToLogin}
                     className="card-text btn btn-primary"
                     id={course._id}
                   >
                     註冊課程
-                  </a>
+                  </button>
                 )}
               </div>
             </div>

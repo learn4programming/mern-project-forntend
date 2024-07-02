@@ -9,6 +9,7 @@ import AuthService from "./services/auth.service";
 import CourseComponent from "./components/course-component";
 import PostCourseComponent from "./components/postCourse-component";
 import EnrollComponent from "./components/enroll-component";
+import Page404Component from "./components/page404-component";
 
 function App() {
   let [currentUser, setCurrentUser] = useState(AuthService.getCurrentUser());
@@ -73,6 +74,8 @@ function App() {
               />
             }
           />
+
+          <Route path="*" element={<Page404Component />} />
         </Route>
       </Routes>
     </BrowserRouter>

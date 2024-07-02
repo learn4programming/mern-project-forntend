@@ -1,9 +1,9 @@
 import axios from "axios";
-const API_URL = "https://mern-project-api-bycc.onrender.com";
-// const API_URL = "http://localhost:8080";
+// const API_URL = "https://mern-project-api-bycc.onrender.com";
+const API_URL = "http://localhost:8080";
 
 //HEY
-class CourseService {
+class CourseForService {
   post(title, description, price) {
     let token;
     if (localStorage.getItem("user")) {
@@ -152,4 +152,5 @@ class CourseService {
   }
 }
 
-export default new CourseService();
+const CourseService = new CourseForService();
+export default CourseService;

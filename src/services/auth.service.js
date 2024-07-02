@@ -1,8 +1,8 @@
 import axios from "axios";
-const API_URL = "https://mern-project-api-bycc.onrender.com/api/user";
-// const API_URL = "http://localhost:8080/api/user";
+// const API_URL = "https://mern-project-api-bycc.onrender.com/api/user";
+const API_URL = "http://localhost:8080/api/user";
 
-class AuthService {
+class AuthForService {
   login(email, password) {
     return axios.post(API_URL + "/login", { email, password });
   }
@@ -23,4 +23,5 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const AuthService = new AuthForService();
+export default AuthService;
