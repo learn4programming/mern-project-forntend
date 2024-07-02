@@ -21,6 +21,7 @@ const EnrollComponent = ({ currentUser, setCurrentUser }) => {
     } else {
       CourseService.getAllPublicCourses()
         .then((response) => {
+          setAllCourses(response.data);
           setSearchResult(response.data);
         })
         .catch((e) => {
