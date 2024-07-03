@@ -1,6 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const HomeComponent = () => {
+  const navigate = useNavigate();
+  const login = () => {
+    navigate("/login");
+  };
+
   return (
     <main>
       <div className="container py-4">
@@ -20,16 +26,28 @@ const HomeComponent = () => {
             <div className="h-100 p-5 text-white bg-dark rounded-3">
               <h2>作為一個學生</h2>
               <p>
-                學生可以註冊他們喜歡的課程。本網站僅供練習之用，請勿提供任何個人資料，例如信用卡號碼。
+                學生可以在課程總覽註冊他們喜歡的課程。
+                <br />註 :
+                本網站僅供練習之用，請勿提供任何個人資料，例如信用卡號碼。
               </p>
+
+              <button onClick={login} className="btn btn-primary btn-block">
+                登入
+              </button>
             </div>
           </div>
           <div className="col-md-6">
             <div className="h-100 p-5 bg-light border rounded-3">
               <h2>作為一個導師</h2>
               <p>
-                您可以通過註冊成為一名講師，並開始製作在線課程。本網站僅供練習之用，請勿提供任何個人資料，例如信用卡號碼。
+                您可以通過註冊成為一名講師，並開始製作在線課程。
+                <br />註 :
+                本網站僅供練習之用，請勿提供任何個人資料，例如信用卡號碼。
               </p>
+
+              <button onClick={login} className="btn btn-primary btn-block">
+                登入
+              </button>
             </div>
           </div>
         </div>

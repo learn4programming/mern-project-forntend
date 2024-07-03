@@ -7,12 +7,18 @@ const LoginComponent = ({ currentUser, setCurrentUser }) => {
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [message, setMessage] = useState("");
+  let [input, setInput] = useState("");
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
   const handlePassword = (e) => {
     setPassword(e.target.value);
+  };
+
+  const identifylogin = async (e) => {
+    setEmail(e.currentTarget.getAttribute("data-email"));
+    setPassword(e.currentTarget.getAttribute("data-password"));
   };
 
   const handleLogin = async () => {
@@ -34,6 +40,7 @@ const LoginComponent = ({ currentUser, setCurrentUser }) => {
         <div className="form-group">
           <label htmlFor="username">電子信箱：</label>
           <input
+            value={email}
             onChange={handleEmail}
             type="text"
             className="form-control"
@@ -44,6 +51,7 @@ const LoginComponent = ({ currentUser, setCurrentUser }) => {
         <div className="form-group">
           <label htmlFor="password">密碼：</label>
           <input
+            value={password}
             onChange={handlePassword}
             type="password"
             className="form-control"
@@ -52,7 +60,30 @@ const LoginComponent = ({ currentUser, setCurrentUser }) => {
         </div>
         <br />
         <div className="form-group">
-          <button onClick={handleLogin} className="btn btn-primary btn-block">
+          <button
+            onClick={identifylogin}
+            className="btn btn-primary btn-block"
+            style={{ marginRight: "0.5rem" }}
+            data-email="mike1234@gmail.com"
+            data-password="mike1234"
+          >
+            <span>學生</span>
+          </button>
+
+          <button
+            onClick={identifylogin}
+            className="btn btn-primary btn-block"
+            data-email="john1234@gmail.com"
+            data-password="john1234"
+          >
+            <span>導師</span>
+          </button>
+
+          <button
+            onClick={handleLogin}
+            className="btn btn-primary btn-block"
+            style={{ marginLeft: "5rem" }}
+          >
             <span>登入系統</span>
           </button>
         </div>
